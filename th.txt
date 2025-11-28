@@ -1,0 +1,22 @@
+NODE JS:
+how to create serrver which will handle request and response..
+Java -- tomcat
+Python
+node - express | http
+php : wamp xamp
+
+
+MERN : mongo, express, react , node :- run time js
+express 3rd party framework
+npm i express
+
+Dev tools
+sudo npm i nodemon -g
+-g global..
+
+
+app.js ->routes -->controllers -->business logic -->models[dd pram..]
+
+
+mongodb,mongoose
+npm i mongoose

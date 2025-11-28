@@ -1,0 +1,68 @@
+console.log("app.js file loaded")
+// const user = require("./users")
+// console.log(user) //{}
+// console.log(user.userName)
+// console.log(user.userAge)
+// user.getUserTest() // function call
+// console.log(user.printUserName("raj"))
+
+
+// const {empAge,empName}= require("./employees")
+// console.log(empName)
+// console.log(empAge)
+
+
+//api create..
+
+//localhost:3000/test
+app.get("/test", (req, res) => {
+  console.log("test api called...");
+  res.send("test api called...");
+});
+
+app.get("/user", (req, res) => {
+  const user = {
+    id: 1,
+    name: "raj",
+    age: 23,
+    city: "ahm",
+  };
+  //res.json(user)
+  res.json({ message: "data fetched successfully!!", data: user });
+});
+
+var users = [
+  { id: 10, name: "parth", age: 23 },
+  { id: 12, name: "amit", age: 25 },
+  { id: 2, name: "jay", age: 26 },
+];
+
+app.get("/users", (req, res) => {
+  res.json({
+    data: users,
+  });
+});
+
+app.get("/user/:id", (req, res) => {
+  //"id" ->req.params object..{id:101}
+  console.log(req.params);
+  console.log(req.params.id);
+  //find..
+  var foundUser = users.find((user) => user.id == req.params.id);
+  if (foundUser != undefined) {
+    res.json({
+      message: "user found..",
+      data: foundUser,
+    });
+  } else {
+    res.json({
+      message: "user not found..",
+      data: null,
+    });
+  }
+});
+
+var employees = [
+    {id:1,name:"raj",salary:20000},
+    
+]
