@@ -20,7 +20,25 @@ const getUserById = (req,res)=>{
     })
 }
 
+const addUser = async(req,res)=>{
+
+        //req -->body,params,query,headers
+        //body {}
+        //params :id
+        //query ?
+        console.log(req.body) //json data
+        //db.users.insert({"name":"amit",age:23})
+        //db.users.insert(req.body)
+        const savedUser = await userModel.create(req.body) //try
+        res.json({
+            message:"post api called..",
+            data:savedUser
+        })
+
+}
+
 module.exports ={
     getAllUsers,
-    getUserById
+    getUserById,
+    addUser
 }

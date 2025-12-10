@@ -20,3 +20,8 @@ app.js ->routes -->controllers -->business logic -->models[dd pram..]
 
 mongodb,mongoose
 npm i mongoose
+
+post api:
+
+req.body : multipule opt
+server -- express --> data type : applicaition/json

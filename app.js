@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express(); //create an object of express..
 const mongoose = require("mongoose")
+app.use(express.json()) //() global middlware /apply -> it will accept data as json
 
 //routes required..
 const userRoutes = require("./src/routes/UserRoutes")
