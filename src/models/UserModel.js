@@ -13,6 +13,15 @@ const userModel = new Schema({
     status:{
         type:Boolean,
         default:true
+    },
+    hobbies:[
+        {
+            type:String
+        }
+    ],
+    bloodGroup:{
+        type:String,
+        enum:["A+","A-","B+","B-"]
     }
 })
 //mongoose.model("collectionName[table name]",userModel)

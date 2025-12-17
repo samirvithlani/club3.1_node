@@ -1,44 +1,67 @@
 //api functions..
-const userModel = require("../models/UserModel")
+const userModel = require("../models/UserModel");
 //userModel == db.users
 
-const getAllUsers =async(req,res)=>{
-    //db.users.find
-    //promise[]
-    const users = await userModel.find()
+const getAllUsers = async (req, res) => {
+  //db.users.find
+  //promise[]
+  const users = await userModel.find();
+  res.json({
+    message: "get all users api called...",
+    data: users,
+  });
+};
+const getUserById = (req, res) => {
+  res.json({
+    message: "get user by id called..",
+    id: req.params.id,
+  });
+};
+
+const addUser = async (req, res) => {
+  //req -->body,params,query,headers
+  //body {}
+  //params :id
+  //query ?
+  console.log(req.body); //json data
+  //db.users.insert({"name":"amit",age:23})
+  //db.users.insert(req.body)
+  try {
+    const savedUser = await userModel.create(req.body); //try
     res.json({
-        message:"get all users api called...",
-        data:users
-    })
-
-}
-const getUserById = (req,res)=>{
-
+      message: "post api called..",
+      data: savedUser,
+    });
+  } catch (err) {
     res.json({
-        message:"get user by id called..",
-        id:req.params.id
-    })
-}
+      err: err,
+    });
+  }
+};
 
-const addUser = async(req,res)=>{
+const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await userModel.findByIdAndDelete(req.params.id);
+    console.log(deletedUser)
+    if (deletedUser) {
+      res.status(200).json({
+        message: "user deleted..",
+      });
+    } else {
+      res.status(404).json({
+        message: "user not found.",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: "error while deleting user",
+    });
+  }
+};
 
-        //req -->body,params,query,headers
-        //body {}
-        //params :id
-        //query ?
-        console.log(req.body) //json data
-        //db.users.insert({"name":"amit",age:23})
-        //db.users.insert(req.body)
-        const savedUser = await userModel.create(req.body) //try
-        res.json({
-            message:"post api called..",
-            data:savedUser
-        })
-
-}
-
-module.exports ={
-    getAllUsers,
-    getUserById,
-    addUser
-}
+module.exports = {
+  getAllUsers,
+  getUserById,
+  addUser,
+  deleteUser,
+};
