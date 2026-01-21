@@ -5,7 +5,7 @@ const userModel = require("../models/UserModel");
 const getAllUsers = async (req, res) => {
   //db.users.find
   //promise[]
-  const users = await userModel.find();
+  const users = await userModel.find().populate("roleId","name");
   res.json({
     message: "get all users api called...",
     data: users,

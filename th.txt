@@ -25,3 +25,11 @@ post api:
 
 req.body : multipule opt
 server -- express --> data type : applicaition/json
+
+
+role:
+fk
+role tablle
+
+id
+user table

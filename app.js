@@ -6,9 +6,11 @@ app.use(express.json()) //() global middlware /apply -> it will accept data as j
 //routes required..
 const userRoutes = require("./src/routes/UserRoutes")
 //routes use
+app.use("/user",userRoutes)
 
-app.use(userRoutes)
 
+const roleRoutes = require("./src/routes/RoleRoutes")
+app.use("/role",roleRoutes)
 //server creation..
 
 

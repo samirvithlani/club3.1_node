@@ -22,6 +22,16 @@ const userModel = new Schema({
     bloodGroup:{
         type:String,
         enum:["A+","A-","B+","B-"]
+    },
+    email:{
+        type:String
+    },
+    password:{
+        type:String
+    },
+    roleId:{
+        type:Schema.Types.ObjectId,
+        ref:"roles"
     }
 })
 //mongoose.model("collectionName[table name]",userModel)
