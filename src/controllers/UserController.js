@@ -24,6 +24,8 @@ const addUser = async (req, res) => {
   //params :id
   //query ?
   console.log(req.body); //json data
+  //email = req.body.email
+  //function call()
   //db.users.insert({"name":"amit",age:23})
   //db.users.insert(req.body)
   try {

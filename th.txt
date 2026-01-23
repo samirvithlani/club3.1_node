@@ -33,3 +33,5 @@ role tablle
 
 id
 user table
+
+nodemailer -->gmail --> 2 step varification on...
