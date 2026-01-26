@@ -24,7 +24,8 @@ const userModel = new Schema({
         enum:["A+","A-","B+","B-"]
     },
     email:{
-        type:String
+        type:String,
+        unique:true
     },
     password:{
         type:String

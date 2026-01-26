@@ -1,11 +1,12 @@
 //api functions..
 const userModel = require("../models/UserModel");
+const bcrypt = require("bcrypt");
 //userModel == db.users
 
 const getAllUsers = async (req, res) => {
   //db.users.find
   //promise[]
-  const users = await userModel.find().populate("roleId","name");
+  const users = await userModel.find().populate("roleId", "name");
   res.json({
     message: "get all users api called...",
     data: users,
@@ -29,7 +30,12 @@ const addUser = async (req, res) => {
   //db.users.insert({"name":"amit",age:23})
   //db.users.insert(req.body)
   try {
-    const savedUser = await userModel.create(req.body); //try
+    const hashedPassword = bcrypt.hashSync(req.body.password, 12);
+    //const savedUser = await userModel.create(req.body); //try
+    const savedUser = await userModel.create({
+      ...req.body,
+      password: hashedPassword,
+    }); //try
     res.json({
       message: "post api called..",
       data: savedUser,
@@ -65,7 +71,11 @@ const updateUser = async (req, res) => {
   //id == req.params.id
   //data=  req.body
   //const updatedUser = await userModel.findByIdAndUpdate(req.params.id, req.body);
-  const updatedUser = await userModel.findByIdAndUpdate(req.params.id, req.body,{new:true});
+  const updatedUser = await userModel.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+  );
   if (updatedUser) {
     res.json({
       message: "user updated successfully...",
@@ -79,28 +89,67 @@ const updateUser = async (req, res) => {
 };
 
 //if hobby is already avaialble it should not add....
-const addNewHobby = async(req,res)=>{
+const addNewHobby = async (req, res) => {
+  const hobby = req.body.hobby;
+  const id = req.params.id;
 
-    const hobby = req.body.hobby
-    const id = req.params.id
-
-    try{
-    const updatedUserafteraddhobby =await userModel.findByIdAndUpdate(id,{$push:{hobbies:hobby}},{new:true})
+  try {
+    const updatedUserafteraddhobby = await userModel.findByIdAndUpdate(
+      id,
+      { $push: { hobbies: hobby } },
+      { new: true },
+    );
     //if else
-      res.json({
-        message:"hobby addedd successfull",
-        data:updatedUserafteraddhobby
-      })
-    }catch(err){
-      res.json({
-        message:"errir while adding hobby ",
-        err:err
-      })
-    }
+    res.json({
+      message: "hobby addedd successfull",
+      data: updatedUserafteraddhobby,
+    });
+  } catch (err) {
+    res.json({
+      message: "errir while adding hobby ",
+      err: err,
+    });
+  }
+};
 
+const loginUser = async (req, res) => {
+  //email,password
+  // const email = req.body.email
+  // const password = req.body.password
+  const { email, password } = req.body;
+  try {
 
-}
+      //email --> user found ---> password?? -->encr -->plain ---> compare -->node
+      const foundUserFromEmail = await userModel.findOne({email:email})
+      if(foundUserFromEmail){
+          //foundUserFromEmail.password == password using bcrypt.compare()
+          //password ===> loign user plain..  hashpassword...
+          if(bcrypt.compareSync(password,foundUserFromEmail.password)){
+              res.json({
+                message:"login success..",
+                data:foundUserFromEmail
+              })
+          }
+          else{
+            res.json({
+              message:"invalid credentials.."
+            })
+          }
+      }
+      else{
+        res.json({
+          message:"user not found signup first,"
+        })
+      }
+        
 
+  } catch (err) {
+    res.json({
+      message: "error while login.",
+      err: err,
+    });
+  }
+};
 
 module.exports = {
   getAllUsers,
@@ -108,5 +157,6 @@ module.exports = {
   addUser,
   deleteUser,
   updateUser,
-  addNewHobby
+  addNewHobby,
+  loginUser
 };
