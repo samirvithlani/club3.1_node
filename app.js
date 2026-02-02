@@ -13,6 +13,8 @@ const roleRoutes = require("./src/routes/RoleRoutes")
 app.use("/role",roleRoutes)
 //server creation..
 
+const uploadRoutes = require("./src/routes/UploadRoutes")
+app.use("/upload",uploadRoutes)
 
 
 mongoose.connect("mongodb://127.0.0.1:27017/club3_1_node").then((data)=>{
