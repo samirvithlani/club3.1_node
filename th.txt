@@ -39,7 +39,8 @@ nodemailer -->gmail --> 2 step varification on...
 npm i bcrypt
 
 middleware: filter..
-
-
-
 npm i multer.
+
+middleware: 
+
+uploadMiddleware.js

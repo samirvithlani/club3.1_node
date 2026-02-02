@@ -8,6 +8,7 @@ router.get("/users",TestMiddleware.validateMiddleware,userController.getAllUsers
 router.get("/user/:id",userController.getUserById)
 
 router.post("/user",zodmiddleware.validationMiddleware(userValidationSchema),userController.addUser)
+//router.post("/user",uploadMiddleware.upload.single("profilepic"),userController.addUser)
 
 router.delete("/user/:id",userController.deleteUser)
 router.put("/user/:id",userController.updateUser)
