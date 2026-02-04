@@ -44,3 +44,5 @@ npm i multer.
 middleware: 
 
 uploadMiddleware.js
+
+npm i cloudinary

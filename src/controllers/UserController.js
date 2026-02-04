@@ -1,6 +1,7 @@
 //api functions..
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
+const cloudinaryUtil = require("../utils/CloudiaryUtils")
 //userModel == db.users
 
 const getAllUsers = async (req, res) => {
@@ -24,17 +25,24 @@ const addUser = async (req, res) => {
   //body {}
   //params :id
   //query ?
+  console.log("file.....",req.file)
+
   console.log(req.body); //json data
   //email = req.body.email
   //function call()
   //db.users.insert({"name":"amit",age:23})
   //db.users.insert(req.body)
   try {
+    const cloudinaryResponse = await cloudinaryUtil.uploadTocloudinary(req.file.path)
+    console.log(cloudinaryResponse)
+    //secure_url --> image.
+
     const hashedPassword = bcrypt.hashSync(req.body.password, 12);
     //const savedUser = await userModel.create(req.body); //try
     const savedUser = await userModel.create({
       ...req.body,
       password: hashedPassword,
+      //imageUrl:
     }); //try
     res.json({
       message: "post api called..",
