@@ -75,3 +75,6 @@ npm i jsonwebtoken
 
 API - >xyz --> public -> private -->
 api -->call ---> token --> token -->verify -->jwt --> sucess -> error 
+
+AUTH middleware --> header -->
+Autherization: Bearer token -->  next --> response
