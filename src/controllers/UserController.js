@@ -2,6 +2,8 @@
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const cloudinaryUtil = require("../utils/CloudiaryUtils")
+const jwt = require("jsonwebtoken")
+const secretKey = "samir"
 //userModel == db.users
 
 const getAllUsers = async (req, res) => {
@@ -132,13 +134,20 @@ const loginUser = async (req, res) => {
       if(foundUserFromEmail){
           //foundUserFromEmail.password == password using bcrypt.compare()
           //password ===> loign user plain..  hashpassword...
+
           if(bcrypt.compareSync(password,foundUserFromEmail.password)){
+
+            //token gen..
+            const token = jwt.sign(foundUserFromEmail.toObject(),secretKey)
               res.json({
                 message:"login success..",
-                data:foundUserFromEmail
+                //data:foundUserFromEmail,
+                token:token
               })
           }
           else{
+            
+
             res.json({
               message:"invalid credentials.."
             })
@@ -152,6 +161,7 @@ const loginUser = async (req, res) => {
         
 
   } catch (err) {
+    console.log(err)
     res.json({
       message: "error while login.",
       err: err,

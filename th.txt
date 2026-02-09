@@ -46,3 +46,32 @@ middleware:
 uploadMiddleware.js
 
 npm i cloudinary
+
+-->token...
+
+auth:
+authorization: role access
+authectication: sucess login: register --> email --> password
+
+login: -->web application ---> page --> email --password --> page access
+api --> page* --> email -->password
+
+token generate -->
+
+NETFLIX --> backend ---> FRONTEND
+
+       API --> frontend ---> movies ---> api -- >response  login
+api -->secure ---> token bind
+
+auth2.0 secure protocol--> HEADER --> token
+
+token -- key --->data --> authecticated -->data encrypted --> token
+package JWT json web token
+Bearer token
+
+jsonwebtoken
+npm i jsonwebtoken
+
+
+API - >xyz --> public -> private -->
+api -->call ---> token --> token -->verify -->jwt --> sucess -> error 
