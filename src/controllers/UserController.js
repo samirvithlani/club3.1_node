@@ -138,7 +138,7 @@ const loginUser = async (req, res) => {
           if(bcrypt.compareSync(password,foundUserFromEmail.password)){
 
             //token gen..
-            const token = jwt.sign(foundUserFromEmail.toObject(),secretKey)
+            const token = jwt.sign(foundUserFromEmail.toObject(),secretKey,{expiresIn:60})
               res.json({
                 message:"login success..",
                 //data:foundUserFromEmail,
